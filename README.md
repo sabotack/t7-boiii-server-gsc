@@ -2,7 +2,7 @@
 These scripts are made for a private dedicated BOIII ZM server.
 
 ## Usage
-Either compile the project yourself or copy the pre-compiled `_clientids.gsc` to your server so you have the following structure: `boiii/scripts/zm/gametypes/_clientids.gsc`
+Either compile the project yourself using [t7-compiler](https://github.com/shiversoftdev/t7-compiler) or copy the pre-compiled `_clientids.gsc` to your server so you have the following structure: `boiii/scripts/zm/gametypes/_clientids.gsc`
 
 ## Features
 - Partial IW4MAdmin Integration
