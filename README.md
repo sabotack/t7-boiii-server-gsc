@@ -1,6 +1,9 @@
 # BOIII: Dedicated ZM Server GSC Scripts
 These scripts are made for a private dedicated BOIII ZM server.
 
+## Usage
+Either compile the project yourself or copy the pre-compiled `_clientids.gsc` to your server so you have the following structure: `boiii/scripts/zm/gametypes/_clientids.gsc`
+
 ## Features
 - Partial IW4MAdmin Integration
 - Origins Tank Crash Hotfix
