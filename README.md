@@ -2,7 +2,8 @@
 These scripts are made for a private dedicated BOIII ZM server.
 
 ## Usage
-Either compile the project yourself using [t7-compiler](https://github.com/shiversoftdev/t7-compiler) or copy the pre-compiled `_clientids.gsc` to your server so you have the following structure: `boiii/scripts/zm/gametypes/_clientids.gsc`
+1. Either compile the project yourself using [t7-compiler](https://github.com/shiversoftdev/t7-compiler) or copy the pre-compiled `_clientids.gsc` to your server so you have the following structure: `boiii/scripts/zm/gametypes/_clientids.gsc`
+2. Copy `GameInterface.js` to the `Plugins` folder of your IW4MAdmin installation (replace the existing file).
 
 ## Features
 - Partial IW4MAdmin Integration
