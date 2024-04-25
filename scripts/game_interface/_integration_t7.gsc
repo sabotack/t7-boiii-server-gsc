@@ -181,6 +181,10 @@ GiveWeaponImpl(event, data)
     
     weapon = getWeapon(data["weaponName"]);
 
+    if(!isDefined(weapon) || weapon == level.weaponNone) {
+        return "^1Could not find weapon with name: " + data["weaponName"];
+    }
+
     #ifdef ZM
         self zm_weapons::weapon_give(weapon);
     #else
