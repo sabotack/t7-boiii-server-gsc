@@ -5,10 +5,10 @@ InitT7()
 
 SetupT7()
 {
-    level endon( "end_game" );
+    level endon("end_game");
     waittillframeend;
     
-    level waittill( level.notifyTypes.sharedFunctionsInitialized );
+    level waittill(level.notifyTypes.sharedFunctionsInitialized);
     level.eventBus.gamename = "T7";
     level.eventTypes.gameEnd = "end_game";
     
@@ -25,7 +25,7 @@ SetupT7()
     
     RegisterClientCommands();
     
-    level notify( level.notifyTypes.gameFunctionsInitialized );
+    level notify(level.notifyTypes.gameFunctionsInitialized);
 }
 
 RegisterClientCommands() 
@@ -45,15 +45,15 @@ GetTotalShotsFired()
     return 0; //ZM has no shot tracking. TODO: add tracking function for event weapon_fired
 }
 
-SetDvarIfUninitializedWrapper( dvar, value )
+SetDvarIfUninitializedWrapper(dvar, value)
 {
-	if ( GetDvarString( dvar ) == "" )
+	if(GetDvarString(dvar) == "")
 	{
-		SetDvar( dvar, value );
+		SetDvar(dvar, value);
 		return value;
 	}
 	
-	return GetDvarString( dvar );
+	return GetDvarString(dvar);
 }
 
 SetInboundData(location, data) {
@@ -66,13 +66,13 @@ SetOutboundData(location, data) {
     return GetDvarString(level.eventBus.outVar);
 }
 
-WaitillNotifyOrTimeoutWrapper( msg, timer )
+WaitillNotifyOrTimeoutWrapper(msg, timer)
 {
-	self endon( msg );
-	wait( timer );
+	self endon(msg);
+	wait(timer);
 }
 
-LogCustom( logLevel, message ) 
+LogCustom(logLevel, message) 
 {
     print("[" + loglevel + "]" + " " + message);
 }
@@ -96,9 +96,9 @@ LogCustom( logLevel, message )
 //     }
 // }
 
-IsBotWrapper( client )
+IsBotWrapper(client)
 {
-    return ( IsDefined ( client.pers["isBot"] ) && client.pers["isBot"] != 0 );
+    return (IsDefined(client.pers["isBot"]) && client.pers["isBot"] != 0);
 }
 
 GetXuidWrapper()
@@ -106,7 +106,7 @@ GetXuidWrapper()
     return self GetXUID();
 }
 
-GetPlayerFromClientNumWrapper( clientNum )
+GetPlayerFromClientNumWrapper(clientNum)
 {
     return util::getPlayerFromClientNum(clientNum);
 }
@@ -117,30 +117,45 @@ GetPlayerFromClientNumWrapper( clientNum )
 
 CEGO5050(event, data)
 {
+    if(!IsAlive(self))
+    {
+        self iPrintLnBold("^1You must be alive to use this feature!");
+        return;
+    }
+
+    if(!(self.score > 0))
+    {
+        self iPrintLnBold("^1You do not have any points to gamble!");
+        return;
+    }
+
     msgBroadcast = "";
     msgPersonal = "";
     prevScore = self.score;
     decider = randomInt(100);
     loss = true;
 
-    if (decider > 50) {
+    if(decider > 50)
+    {
         loss = false;
     }
 
-    if (loss) {
+    if(loss)
+    {
         self zm_score::add_to_player_score(self.score * -1);
         msgBroadcast = "5050: ^1" + self.name + " lost " + prevScore + " points!" ;
         msgPersonal = "^1You lost " + prevScore + " points!";
     }
-    else {
+    else
+    {
         self zm_score::add_to_player_score(self.score);
         msgBroadcast = "5050: ^3" + self.name + " doubled their points!";
         msgPersonal = "^3You doubled your points!";
     }
 
-    for ( i = 0; i < level.players.size; i++ )
+    for (i = 0; i < level.players.size; i++)
     {
-        if ( level.players[i] getEntityNumber() == self getEntityNumber() )
+        if(level.players[i] getEntityNumber() == self getEntityNumber())
         {
             self iPrintLnBold(msgPersonal);
             continue;
@@ -155,7 +170,8 @@ AdjustPointsImpl(event, data)
     points = data["points"];
     isNegative = false;
 
-    if (int(points) < 0) {
+    if(int(points) < 0)
+    {
         isNegative = true;
     }
 
@@ -166,12 +182,17 @@ AdjustPointsImpl(event, data)
 
 GiveWeaponImpl(event, data)
 {
-    if (!isAlive(self))
+    if(!isAlive(self))
     {
         return self.name + "^7 is not alive";
     }
     
     weapon = getWeapon(data["weaponName"]);
+
+    if(!isDefined(weapon) || weapon == level.weaponNone)
+    {
+        return "^1Could not find weapon with name: " + data["weaponName"];
+    }
 
     #ifdef ZM
         self zm_weapons::weapon_give(weapon);
@@ -186,7 +207,7 @@ GiveWeaponImpl(event, data)
 
 TakeWeaponsImpl(event, data)
 {
-    if (!isAlive(self))
+    if(!isAlive(self))
     {
         return self.name + "^7 is not alive";
     }
@@ -307,18 +328,18 @@ TakeWeaponsImpl(event, data)
 
 HideImpl(event, data)
 {
-    if (!isAlive(self))
+    if(!isAlive(self))
     {
         self iPrintLnBold("You are not alive");
         return;
     }
     
-    if (!isDefined(self.isHidden))
+    if(!isDefined(self.isHidden))
     {
         self.isHidden = false;
     }
 
-    if (!self.isHidden)
+    if(!self.isHidden)
     {
         self setClientThirdPerson(1);
         self enableInvulnerability();
@@ -399,7 +420,7 @@ AlertImpl(event, data)
 
 KillImpl(event, data)
 {
-    if (self.sessionstate != "playing")
+    if(self.sessionstate != "playing")
     {
         return self.name + " is not alive";
     }
@@ -422,7 +443,7 @@ KillImpl(event, data)
 
 SetSpectatorImpl(event, data)
 {
-    if (self.pers["team"] == "spectator") 
+    if(self.pers["team"] == "spectator") 
     {
         return self.name + " is already spectating";
     }
