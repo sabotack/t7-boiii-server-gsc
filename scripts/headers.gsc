@@ -38,7 +38,6 @@ function __init__()
 	callback::on_start_gametype(::InitBase);
 	callback::on_start_gametype(::initMain);
 	callback::on_connect(::onPlayerConnectMain);
-	callback::on_spawned(::onPlayerSpawnedMain);
 
 	// Callbacks for enabling hitmarkers
 	zm_spawner::register_zombie_damage_callback(::doHitmarker);
