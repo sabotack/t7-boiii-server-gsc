@@ -117,17 +117,22 @@ GetPlayerFromClientNumWrapper( clientNum )
 
 CEGO5050(event, data)
 {
+    if(!(self.score > 0)) {
+        self iPrintLnBold("^1You do not have any points to gamble!");
+        return;
+    }
+
     msgBroadcast = "";
     msgPersonal = "";
     prevScore = self.score;
     decider = randomInt(100);
     loss = true;
 
-    if (decider > 50) {
+    if(decider > 50) {
         loss = false;
     }
 
-    if (loss) {
+    if(loss) {
         self zm_score::add_to_player_score(self.score * -1);
         msgBroadcast = "5050: ^1" + self.name + " lost " + prevScore + " points!" ;
         msgPersonal = "^1You lost " + prevScore + " points!";
@@ -138,10 +143,8 @@ CEGO5050(event, data)
         msgPersonal = "^3You doubled your points!";
     }
 
-    for ( i = 0; i < level.players.size; i++ )
-    {
-        if ( level.players[i] getEntityNumber() == self getEntityNumber() )
-        {
+    for (i = 0; i < level.players.size; i++) {
+        if(level.players[i] getEntityNumber() == self getEntityNumber()) {
             self iPrintLnBold(msgPersonal);
             continue;
         }
