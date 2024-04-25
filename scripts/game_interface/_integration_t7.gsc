@@ -117,6 +117,11 @@ GetPlayerFromClientNumWrapper( clientNum )
 
 CEGO5050(event, data)
 {
+    if(!IsAlive(self)) {
+        self iPrintLnBold("^1You must be alive to use this feature!");
+        return;
+    }
+
     if(!(self.score > 0)) {
         self iPrintLnBold("^1You do not have any points to gamble!");
         return;
