@@ -29,6 +29,3 @@ Could be due to errors in BOIII client binary or my limited GSC knowledge.
   - Client Data
   - Resetting `sv_iw4madmin_in` on certain request types
 > Client Data is not requested and `sv_iw4madmin_in` dvar is manually reset for affected request types to avoid crashes
-
-## Disclaimer
-These scripts have been created purely for the purposes of academic research. Project maintainers are not responsible or liable for misuse of the software. Use responsibly.
