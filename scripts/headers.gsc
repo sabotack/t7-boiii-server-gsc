@@ -9,6 +9,7 @@
 #include scripts\shared\hud_shared;
 #include scripts\shared\array_shared;
 #include scripts\shared\flag_shared;
+#include scripts\zm\gametypes\_hud_message;
 
 #include scripts\shared\ai\zombie_utility;
 
@@ -37,6 +38,7 @@ function __init__()
 	callback::on_start_gametype(::InitShared);
 	callback::on_start_gametype(::InitBase);
 	callback::on_start_gametype(::initMain);
+	callback::on_start_gametype(::initCounter);
 	callback::on_connect(::onPlayerConnectMain);
 
 	// Callbacks for enabling hitmarkers
